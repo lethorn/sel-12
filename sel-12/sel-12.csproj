@@ -53,12 +53,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnvironmentInstallationTest.cs" />
+    <Compile Include="AppLogic\Driver.cs" />
+    <Compile Include="Constants\UrlConstants.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Pages\AdminPage.cs" />
+    <Compile Include="Pages\Base\BasePage.cs" />
+    <Compile Include="Pages\LoginPage.cs" />
+    <Compile Include="Tests\EnvironmentInstallationTest.cs" />
+    <Compile Include="Tests\LoginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
