@@ -58,9 +58,9 @@
     <Compile Include="CommonTestEntities\Users.cs" />
     <Compile Include="Constants\UrlConstants.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Pages\AdminPage.cs" />
+    <Compile Include="Pages\AdminPanel\AdminPage.cs" />
     <Compile Include="Pages\Base\BasePage.cs" />
-    <Compile Include="Pages\LoginPage.cs" />
+    <Compile Include="Pages\AdminPanel\LoginPage.cs" />
     <Compile Include="Tests\SidebarLinksTest.cs" />
     <Compile Include="Tests\EnvironmentInstallationTest.cs" />
     <Compile Include="Tests\LoginTest.cs" />

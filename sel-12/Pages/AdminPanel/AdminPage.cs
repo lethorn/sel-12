@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Support.PageObjects;
 using sel_12.Pages.Base;
 
-namespace sel_12.Pages
+namespace sel_12.Pages.AdminPanel
 {
     /// <summary>
     /// Класс, описывающий страницу панели администрирования

@@ -3,6 +3,7 @@ using sel_12.AppLogic;
 using sel_12.Constants;
 using sel_12.Models;
 using sel_12.Pages;
+using sel_12.Pages.AdminPanel;
 
 namespace sel_12.Tests
 {
