@@ -41,8 +41,10 @@ namespace sel_12.Pages
 
         private Product GetProduct(IWebElement productContainer)
         {
-            var stickerElement = productContainer.FindElement(By.XPath(".//div[contains(@class, 'sticker')]"));
+            // Стикер должен быть единственным для конкретного товара
+            var stickerElement = productContainer.FindElements(By.XPath(".//div[contains(@class, 'sticker')]")).Single();
             var isOnSale = stickerElement.GetAttribute("class").Equals("sticker sale");
+
             return new Product
             {
                 ProductName = productContainer.FindElement(By.ClassName("name")).Text,

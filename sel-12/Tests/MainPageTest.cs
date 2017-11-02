@@ -25,13 +25,16 @@ namespace sel_12.Tests
             var mainPage = new MainPage();
             mainPage.EnsurePageLoaded();
 
+            // NOTE: проверка, что стикер является единственным для конкретного товара,
+            // осуществляется в методе GetProduct в классе MsinPage 
+            // (Single() выбрасывает исключение в случае, если в коллекции присутствует более одного элемента)
             CheckProductsByCategory(Product.ProductCategories.MostPopular, expectedProducts);
             CheckProductsByCategory(Product.ProductCategories.Campaings, 
                 expectedProducts.Where(x => x.StickerValue.Equals("SALE")));
             CheckProductsByCategory(Product.ProductCategories.Latest, expectedProducts);
         }
 
-        private void CheckProductsByCategory(Product.ProductCategories productCategory, IEnumerable<Product> expectedInfo)
+        private static void CheckProductsByCategory(Product.ProductCategories productCategory, IEnumerable<Product> expectedInfo)
         {
             var actualProducts = new MainPage().GetProductsByCategory(productCategory);
             Assert.That(actualProducts, Is.EquivalentTo(expectedInfo));
