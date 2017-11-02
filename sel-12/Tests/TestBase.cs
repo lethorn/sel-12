@@ -1,22 +1,37 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium.Support.PageObjects;
 using sel_12.AppLogic;
+using sel_12.Constants;
+using sel_12.Models;
+using sel_12.Pages;
 
 namespace sel_12.Tests
 {
     public abstract class TestBase
     {
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             Driver.StartBrowser();
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             Driver.StopBrowser();
+        }
+
+        protected AdminPage LoginAs(User userCredentials)
+        {
+            Driver.GoToUrl(UrlConstants.AdminPageUrl);
+
+            var loginPage = new LoginPage();
+            loginPage.EnsurePageLoaded();
+            loginPage.SetAccountInfo(userCredentials);
+
+            var adminPage = new AdminPage();
+            adminPage.EnsurePageLoaded();
+            return adminPage;
         }
     }
 }

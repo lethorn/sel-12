@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
-using sel_12.AppLogic;
-using sel_12.Constants;
+using sel_12.CommonTestEntities;
 using sel_12.Models;
-using sel_12.Pages;
 
 namespace sel_12.Tests
 {
@@ -11,21 +9,13 @@ namespace sel_12.Tests
     {
         private static readonly TestCaseData[] LoginCases =
         {
-            new TestCaseData(new User("admin", "12345")).SetName("{m} - Admin account")
+            new TestCaseData(Users.Admin).SetName("{m} - Admin account")
         };
 
         [TestCaseSource(nameof(LoginCases))]
         public void LoginTest(User userCredentials)
         {
-            Driver.GoToUrl(UrlConstants.AdminPageUrl);
-
-            var loginPage = new LoginPage();
-            loginPage.EnsurePageLoaded();
-            loginPage.SetAccountInfo(userCredentials);
-
-            var adminPage = new AdminPage();
-            adminPage.EnsurePageLoaded();
-
+            var adminPage = LoginAs(userCredentials);
             Assert.True(adminPage.LogoImage.Displayed);
         }
     }
