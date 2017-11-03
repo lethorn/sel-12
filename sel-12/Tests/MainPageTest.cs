@@ -26,10 +26,10 @@ namespace sel_12.Tests
             mainPage.EnsurePageLoaded();
 
             // NOTE: проверка, что стикер является единственным для конкретного товара,
-            // осуществляется в методе GetProduct в классе MsinPage 
+            // осуществляется в методе GetProduct в классе MainPage 
             // (Single() выбрасывает исключение в случае, если в коллекции присутствует более одного элемента)
             CheckProductsByCategory(Product.ProductCategories.MostPopular, expectedProducts);
-            CheckProductsByCategory(Product.ProductCategories.Campaings, 
+            CheckProductsByCategory(Product.ProductCategories.Campaigns, 
                 expectedProducts.Where(x => x.StickerValue.Equals("SALE")));
             CheckProductsByCategory(Product.ProductCategories.Latest, expectedProducts);
         }

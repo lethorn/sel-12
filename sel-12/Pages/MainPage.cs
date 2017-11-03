@@ -30,7 +30,7 @@ namespace sel_12.Pages
             {
                 case Product.ProductCategories.MostPopular:
                     return MostPopularProductsElements.Select(GetProduct).ToList();
-                case Product.ProductCategories.Campaings:
+                case Product.ProductCategories.Campaigns:
                     return CampaignProductsElements.Select(GetProduct).ToList();
                 case Product.ProductCategories.Latest:
                     return LatestProductsElements.Select(GetProduct).ToList();

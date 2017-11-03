@@ -15,7 +15,7 @@ namespace sel_12.Models
         public enum ProductCategories
         {
             MostPopular,
-            Campaings,
+            Campaigns,
             Latest
         }
 
