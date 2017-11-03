@@ -55,7 +55,6 @@
   <ItemGroup>
     <Compile Include="AppLogic\Driver.cs" />
     <Compile Include="CommonTestEntities\Products.cs" />
-    <Compile Include="CommonTestEntities\SidebarLinks.cs" />
     <Compile Include="CommonTestEntities\Users.cs" />
     <Compile Include="Constants\UrlConstants.cs" />
     <Compile Include="Models\Product.cs" />
