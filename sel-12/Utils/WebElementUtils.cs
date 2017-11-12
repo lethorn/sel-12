@@ -17,13 +17,15 @@ namespace sel_12.Utils
         {
             var rawRgbaValue = element.GetCssValue("color")
                 .Replace("rgba(", string.Empty)
+                .Replace("rgb(", string.Empty)
                 .Replace(");", string.Empty)
+                .Replace(")", string.Empty)
                 .Split(',');
             return new RgbColors
             {
-                Red = int.Parse(rawRgbaValue[0]),
-                Green = int.Parse(rawRgbaValue[1]),
-                Blue = int.Parse(rawRgbaValue[2])
+                Red = int.Parse(rawRgbaValue[0].Trim()),
+                Green = int.Parse(rawRgbaValue[1].Trim()),
+                Blue = int.Parse(rawRgbaValue[2].Trim())
             };
         }
 

@@ -24,9 +24,27 @@ namespace sel_12.Tests
             new TestCaseData(Products.ProductToAdd).SetName("{m}") 
         };
 
+        private static readonly TestCaseData[] DriverCases =
+        {
+            new TestCaseData(Driver.BrowserTypes.Chrome).SetName("{m} - Chrome"),
+            new TestCaseData(Driver.BrowserTypes.Firefox).SetName("{m} - Firefox"),
+            new TestCaseData(Driver.BrowserTypes.InternetExplorer).SetName("{m} - IE"),
+        };
+
+        public override void SetUp()
+        {
+        }
+
+        [TearDown]
+        public void OneTimeTearDown()
+        {
+            TearDown();
+        }
+
         [TestCaseSource(nameof(StickersCases))]
         public void StickersTest(List<Product> expectedProducts)
         {
+            Driver.StartBrowser();
             Driver.GoToUrl(UrlConstants.RootUrl);
 
             var mainPage = new MainPage();
@@ -38,9 +56,10 @@ namespace sel_12.Tests
             CheckProductsByCategory(Product.ProductCategories.Latest, expectedProducts);
         }
 
-        [Test]
-        public void ProductsEqualityTest()
+        [TestCaseSource(nameof(DriverCases))]
+        public void ProductsEqualityTest(Driver.BrowserTypes browserType)
         {
+            Driver.StartBrowser(browserType);
             Driver.GoToUrl(UrlConstants.RootUrl);
 
             var mainPage = new MainPage();
@@ -57,13 +76,13 @@ namespace sel_12.Tests
 
             var actualProduct = productViewPage.GetProduct();
             Assert.That(actualProduct, Is.EqualTo(firstCampaignProduct));
-
             Assert.True(productViewPage.CheckOldPrice());
         }
 
         [TestCaseSource(nameof(ProductAddCases))]
         public void ProductAddTest(Product productToAdd)
         {
+            Driver.StartBrowser();
             LoginAs(Users.Admin);
             Driver.GoToUrl(UrlConstants.CatalogsUrl);
             var catalogsPage = new CatalogPage();
@@ -84,7 +103,7 @@ namespace sel_12.Tests
         private static void CheckProductsByCategory(Product.ProductCategories productCategory, IEnumerable<Product> expectedInfo)
         {
             var actualProducts = new MainPage().GetProductsByCategory(productCategory);
-            Assert.That(actualProducts, Is.EquivalentTo(expectedInfo));
+            Assert.That(actualProducts, Is.SupersetOf(expectedInfo));
         }
     }
 }

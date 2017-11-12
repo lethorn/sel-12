@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
 
 namespace sel_12.AppLogic
@@ -55,7 +56,12 @@ namespace sel_12.AppLogic
                     Browser = new ChromeDriver();
                     break;
                 case BrowserTypes.Firefox:
-                    Browser = new FirefoxDriver();
+                    var options = new FirefoxOptions();
+                    options.BrowserExecutableLocation = @"C:\Program Files (x86)\Mozilla Firefox\firefox.exe";
+                    Browser = new FirefoxDriver(options);
+                    break;
+                case BrowserTypes.InternetExplorer:
+                    Browser = new InternetExplorerDriver();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(browserType), browserType, null);
@@ -85,7 +91,8 @@ namespace sel_12.AppLogic
         {
             // update if needed
             Chrome,
-            Firefox
+            Firefox,
+            InternetExplorer
         }
     }
 }

@@ -12,7 +12,7 @@ namespace sel_12.Tests
     {
 
         [OneTimeSetUp]
-        public void SetUp()
+        public virtual void SetUp()
         {
             Driver.StartBrowser();
         }
