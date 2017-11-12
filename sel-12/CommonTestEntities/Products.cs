@@ -75,7 +75,7 @@ namespace sel_12.CommonTestEntities
         {
             Code = "666",
             ProductName = "Real Duck",
-            ImagePath = FileConsts.DataDirectoryPath + "\\duck.jpg",
+            ImagePath = FileConstants.DataDirectoryPath + "\\duck.jpg",
             Manufacturer = "ACME Corp.",
             ShortDescription = "Test product",
             Description = "Test product for addition",

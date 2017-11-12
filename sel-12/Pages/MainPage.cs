@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Support.UI;
+using sel_12.AppLogic;
 using sel_12.Models;
 using sel_12.Pages.Base;
 using sel_12.Utils;
@@ -20,9 +22,38 @@ namespace sel_12.Pages
         [FindsBy(How = How.XPath, Using = ".//div[@id = 'box-latest-products']/div/ul/li")]
         public readonly IList<IWebElement> LatestProductsElements;
 
+        [FindsBy(How = How.Name, Using = "email")]
+        public readonly IWebElement UserEmailInput;
+
+        [FindsBy(How = How.Name, Using = "password")]
+        public readonly IWebElement UserPasswordInput;
+
+        [FindsBy(How = How.XPath, Using = ".//button[normalize-space() = 'Login']")]
+        public readonly IWebElement LoginButton;
+
+        [FindsBy(How = How.XPath, Using = ".//a[normalize-space() = 'New customers click here']")]
+        public readonly IWebElement UserRegistrationLink;
+
+        [FindsBy(How = How.XPath, Using = ".//a[normalize-space() = 'Logout']")]
+        public readonly IWebElement LogoutLink;
+
         public override void EnsurePageLoaded()
         {
             EnsureElementExists(By.Id("slider-wrapper"));
+        }
+
+        public void Login(User user)
+        {
+            UserEmailInput.SendKeys(user.Email);
+            UserPasswordInput.SendKeys(user.Password);
+            LoginButton.Click();
+            Driver.BrowserWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//a[normalize-space() = 'Logout']")));
+        }
+
+        public void Logout()
+        {
+            LogoutLink.Click();
+            Driver.BrowserWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//a[normalize-space() = 'New customers click here']")));
         }
 
         public bool CheckOldPrice(IWebElement productContainer)
