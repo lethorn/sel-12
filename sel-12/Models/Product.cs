@@ -10,7 +10,9 @@ namespace sel_12.Models
 
         public string Manufacturer { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal ActualPrice { get; set; }
+
+        public decimal? OldPrice { get; set; }
 
         public List<string> Stickers { get; set; }
 
@@ -26,8 +28,8 @@ namespace sel_12.Models
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return string.Equals(ProductName, other.ProductName) && 
-                string.Equals(Manufacturer, other.Manufacturer) && 
-                Price == other.Price && 
+                ActualPrice == other.ActualPrice && 
+                OldPrice == other.OldPrice && 
                 Stickers.OrderBy(x => x).SequenceEqual(other.Stickers.OrderBy(x => x));
         }
 
@@ -45,7 +47,7 @@ namespace sel_12.Models
             {
                 var hashCode = ProductName != null ? ProductName.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Manufacturer != null ? Manufacturer.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Price.GetHashCode();
+                hashCode = (hashCode * 397) ^ ActualPrice.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Stickers != null ? Stickers.GetHashCode() : 0);
                 return hashCode;
             }

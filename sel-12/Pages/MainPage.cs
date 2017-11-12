@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using sel_12.AppLogic;
 using sel_12.Models;
 using sel_12.Pages.Base;
 using sel_12.Utils;
@@ -26,6 +25,61 @@ namespace sel_12.Pages
             EnsureElementExists(By.Id("slider-wrapper"));
         }
 
+        public bool CheckOldPrice(IWebElement productContainer)
+        {
+            var priceContainer = productContainer.FindElement(By.ClassName("price-wrapper"));
+            var oldPriceElement = priceContainer.FindElement(By.TagName("s"));
+
+            var oldPriceDecorations = oldPriceElement.GetCssValue("text-decoration").Split(' ');
+            var doesOldPriceStriked = oldPriceDecorations.First().Equals("line-through");
+
+            var oldPriceRgba = oldPriceElement.GetRgbaValues();
+            var isOldPriceGrey = oldPriceRgba.Green == oldPriceRgba.Blue && 
+                oldPriceRgba.Blue == oldPriceRgba.Red;
+
+            return doesOldPriceStriked && isOldPriceGrey;
+        }
+
+        public bool CheckActualPrice(IWebElement productContainer)
+        {
+            var priceContainer = productContainer.FindElement(By.ClassName("price-wrapper"));
+            var actualPriceElement = priceContainer.FindElement(By.TagName("strong"));
+
+            var actualPriceRgba = actualPriceElement.GetRgbaValues();
+            var doesActualPriceRed = actualPriceRgba.Blue == 0 && actualPriceRgba.Green == 0;
+
+            var doesActualPriceBold = actualPriceElement.GetCssValue("font-weight").Equals("bold");
+
+            var oldPriceFontSize = priceContainer.FindElement(By.TagName("s")).GetFontSize();
+            var actualPriceFontSize = actualPriceElement.GetFontSize();
+
+            return doesActualPriceRed && doesActualPriceBold && actualPriceFontSize > oldPriceFontSize;
+        }
+
+        public void OpenProductViewPage(Product product, Product.ProductCategories category)
+        {
+            switch (category)
+            {
+                case Product.ProductCategories.MostPopular:
+                    MostPopularProductsElements.Select(x => GetProductLink(x, product.ProductName))
+                        .Single()
+                        .Click();
+                    break;
+                case Product.ProductCategories.Campaigns:
+                    CampaignProductsElements.Select(x => GetProductLink(x, product.ProductName))
+                        .Single()
+                        .Click();
+                    break;
+                case Product.ProductCategories.Latest:
+                    LatestProductsElements.Select(x => GetProductLink(x, product.ProductName))
+                        .Single()
+                        .Click();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(category), category, null);
+            }
+        }
+
         public List<Product> GetProductsByCategory(Product.ProductCategories category)
         {
             switch (category)
@@ -41,34 +95,48 @@ namespace sel_12.Pages
             }
         }
 
-        private Product GetProduct(IWebElement productContainer)
+        public Product GetProduct(IWebElement productContainer)
         {
             var stickers = GetStickers(productContainer);
             var isOnSale = stickers.Contains("SALE");
+            var priceContainer = productContainer.FindElement(By.ClassName("price-wrapper"));
 
             return new Product
             {
                 ProductName = productContainer.FindElement(By.ClassName("name")).Text,
                 Manufacturer = productContainer.FindElement(By.ClassName("manufacturer")).Text,
-                Price = GetProductPrice(productContainer, isOnSale),
+                ActualPrice = GetActualPrice(priceContainer, isOnSale),
+                OldPrice = isOnSale ? GetOldPrice(priceContainer) : null,
                 Stickers = stickers
             };
         }
 
-        private static decimal GetProductPrice(ISearchContext productContainer, bool isOnSale)
+        private static decimal GetActualPrice(ISearchContext priceContainer, bool isOnSale)
         {
-            var className = isOnSale ? "campaign-price" : "price";
-            return decimal.Parse(productContainer.FindElement(By.ClassName(className))
+            var tagName = isOnSale ? "strong" : "span";
+            return decimal.Parse(priceContainer.FindElement(By.TagName(tagName))
                 .Text
-                .Replace("$", String.Empty));
+                .Replace("$", string.Empty));
         }
 
-        private List<string> GetStickers(IWebElement productElement)
+        private static decimal? GetOldPrice(ISearchContext priceContainer)
+        {
+            return decimal.Parse(priceContainer.FindElement(By.TagName("s"))
+                .Text
+                .Replace("$", string.Empty));
+        }
+
+        private static List<string> GetStickers(IWebElement productElement)
         {
             var stickers = productElement.FindElements(By.XPath(".//div[@class = 'image-wrapper']/div"));
             return stickers.IsNullOrEmpty() 
                 ? new List<string>() 
                 : stickers.Select(x => x.Text).ToList();
+        }
+
+        private static IWebElement GetProductLink(IWebElement productElement, string productName)
+        {
+            return productElement.FindElement(By.XPath($".//a[@title = '{productName}']"));
         }
     }
 }

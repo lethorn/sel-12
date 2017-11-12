@@ -9,7 +9,7 @@ namespace sel_12.CommonTestEntities
         {
             ProductName = "Blue Duck",
             Manufacturer = "ACME Corp.",
-            Price = 20M,
+            ActualPrice = 20M,
             Stickers = new List<string>
             {
                 "NEW"
@@ -20,7 +20,7 @@ namespace sel_12.CommonTestEntities
         {
             ProductName = "Purple Duck",
             Manufacturer = "ACME Corp.",
-            Price = 0M,
+            ActualPrice = 0M,
             Stickers = new List<string>
             {
                 "NEW"
@@ -31,7 +31,7 @@ namespace sel_12.CommonTestEntities
         {
             ProductName = "Green Duck",
             Manufacturer = "ACME Corp.",
-            Price = 20M,
+            ActualPrice = 20M,
             Stickers = new List<string>
             {
                 "NEW"
@@ -42,7 +42,7 @@ namespace sel_12.CommonTestEntities
         {
             ProductName = "Red Duck",
             Manufacturer = "ACME Corp.",
-            Price = 20M,
+            ActualPrice = 20M,
             Stickers = new List<string>
             {
                 "NEW"
@@ -53,7 +53,8 @@ namespace sel_12.CommonTestEntities
         {
             ProductName = "Yellow Duck",
             Manufacturer = "ACME Corp.",
-            Price = 18M,
+            ActualPrice = 18M,
+            OldPrice = 20M,
             Stickers = new List<string>
             {
                 "SALE"
