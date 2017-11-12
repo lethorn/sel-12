@@ -6,6 +6,8 @@ namespace sel_12.Models
 {
     public class Product : IEquatable<Product>
     {
+        public string Code { get; set; }
+
         public string ProductName { get; set; }
 
         public string Manufacturer { get; set; }
@@ -15,6 +17,8 @@ namespace sel_12.Models
         public decimal? OldPrice { get; set; }
 
         public List<string> Stickers { get; set; }
+
+        public string ImagePath { get; set; }
 
         public enum ProductCategories
         {

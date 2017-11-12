@@ -6,11 +6,13 @@ using sel_12.CommonTestEntities;
 using sel_12.Constants;
 using sel_12.Models;
 using sel_12.Pages;
+using sel_12.Pages.AdminPanel;
+using sel_12.Pages.AdminPanel.ProductPages.AddPages;
 
 namespace sel_12.Tests
 {
     [TestFixture]
-    public class MainPageTest : TestBase
+    public class ProductsTest : TestBase
     {
         private static readonly TestCaseData[] StickersCases =
         {
@@ -32,7 +34,7 @@ namespace sel_12.Tests
         }
 
         [Test]
-        public void ProductsTest()
+        public void ProductsEqualityTest()
         {
             Driver.GoToUrl(UrlConstants.RootUrl);
 
@@ -52,6 +54,27 @@ namespace sel_12.Tests
             Assert.That(actualProduct, Is.EqualTo(firstCampaignProduct));
 
             Assert.True(productViewPage.CheckOldPrice());
+        }
+
+        [Test]
+        public void ProductAddTest()
+        {
+            var newProduct = new Product
+            {
+                Code = "123",
+                ProductName = "12345",
+                ImagePath = FileConsts.DataDirectoryPath + "\\duck.jpg"
+            };
+
+            LoginAs(Users.Admin);
+            Driver.GoToUrl(UrlConstants.CatalogsUrl);
+            var catalogsPage = new CatalogPage();
+            catalogsPage.EnsurePageLoaded();
+            catalogsPage.AddProductButton.Click();
+
+            var addPage = new ProductAddPage();
+            addPage.EnsurePageLoaded();
+            addPage.AddProduct(newProduct);
         }
 
         private static void CheckProductsByCategory(Product.ProductCategories productCategory, IEnumerable<Product> expectedInfo)
