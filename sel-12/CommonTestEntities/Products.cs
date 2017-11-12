@@ -10,7 +10,10 @@ namespace sel_12.CommonTestEntities
             ProductName = "Blue Duck",
             Manufacturer = "ACME Corp.",
             Price = 20M,
-            StickerValue = "NEW"
+            Stickers = new List<string>
+            {
+                "NEW"
+            }
         };
 
         public static readonly Product PurpleDuck = new Product
@@ -18,7 +21,10 @@ namespace sel_12.CommonTestEntities
             ProductName = "Purple Duck",
             Manufacturer = "ACME Corp.",
             Price = 0M,
-            StickerValue = "NEW"
+            Stickers = new List<string>
+            {
+                "NEW"
+            }
         };
 
         public static readonly Product GreenDuck = new Product
@@ -26,7 +32,10 @@ namespace sel_12.CommonTestEntities
             ProductName = "Green Duck",
             Manufacturer = "ACME Corp.",
             Price = 20M,
-            StickerValue = "NEW"
+            Stickers = new List<string>
+            {
+                "NEW"
+            }
         };
 
         public static readonly Product RedDuck = new Product
@@ -34,7 +43,10 @@ namespace sel_12.CommonTestEntities
             ProductName = "Red Duck",
             Manufacturer = "ACME Corp.",
             Price = 20M,
-            StickerValue = "NEW"
+            Stickers = new List<string>
+            {
+                "NEW"
+            }
         };
 
         public static readonly Product YellowDuck = new Product
@@ -42,7 +54,10 @@ namespace sel_12.CommonTestEntities
             ProductName = "Yellow Duck",
             Manufacturer = "ACME Corp.",
             Price = 18M,
-            StickerValue = "SALE"
+            Stickers = new List<string>
+            {
+                "SALE"
+            }
         };
 
         public static readonly List<Product> AllProducts = new List<Product>

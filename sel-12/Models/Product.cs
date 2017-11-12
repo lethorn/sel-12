@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace sel_12.Models
 {
@@ -10,7 +12,7 @@ namespace sel_12.Models
 
         public decimal Price { get; set; }
 
-        public string StickerValue { get; set; }
+        public List<string> Stickers { get; set; }
 
         public enum ProductCategories
         {
@@ -26,7 +28,7 @@ namespace sel_12.Models
             return string.Equals(ProductName, other.ProductName) && 
                 string.Equals(Manufacturer, other.Manufacturer) && 
                 Price == other.Price && 
-                string.Equals(StickerValue, other.StickerValue);
+                Stickers.OrderBy(x => x).SequenceEqual(other.Stickers.OrderBy(x => x));
         }
 
         public override bool Equals(object obj)
@@ -44,7 +46,7 @@ namespace sel_12.Models
                 var hashCode = ProductName != null ? ProductName.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Manufacturer != null ? Manufacturer.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Price.GetHashCode();
-                hashCode = (hashCode * 397) ^ (StickerValue != null ? StickerValue.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Stickers != null ? Stickers.GetHashCode() : 0);
                 return hashCode;
             }
         }

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using sel_12.AppLogic;
 using sel_12.Models;
 using sel_12.Pages.Base;
+using sel_12.Utils;
 
 namespace sel_12.Pages
 {
@@ -41,25 +43,32 @@ namespace sel_12.Pages
 
         private Product GetProduct(IWebElement productContainer)
         {
-            // Стикер должен быть единственным для конкретного товара
-            var stickerElement = productContainer.FindElements(By.XPath(".//div[contains(@class, 'sticker')]")).Single();
-            var isOnSale = stickerElement.GetAttribute("class").Equals("sticker sale");
+            var stickers = GetStickers(productContainer);
+            var isOnSale = stickers.Contains("SALE");
 
             return new Product
             {
                 ProductName = productContainer.FindElement(By.ClassName("name")).Text,
                 Manufacturer = productContainer.FindElement(By.ClassName("manufacturer")).Text,
                 Price = GetProductPrice(productContainer, isOnSale),
-                StickerValue = stickerElement.Text
+                Stickers = stickers
             };
         }
 
-        private decimal GetProductPrice(ISearchContext productContainer, bool isOnSale)
+        private static decimal GetProductPrice(ISearchContext productContainer, bool isOnSale)
         {
             var className = isOnSale ? "campaign-price" : "price";
             return decimal.Parse(productContainer.FindElement(By.ClassName(className))
                 .Text
                 .Replace("$", String.Empty));
+        }
+
+        private List<string> GetStickers(IWebElement productElement)
+        {
+            var stickers = productElement.FindElements(By.XPath(".//div[@class = 'image-wrapper']/div"));
+            return stickers.IsNullOrEmpty() 
+                ? new List<string>() 
+                : stickers.Select(x => x.Text).ToList();
         }
     }
 }

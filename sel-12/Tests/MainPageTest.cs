@@ -30,7 +30,7 @@ namespace sel_12.Tests
             // (Single() выбрасывает исключение в случае, если в коллекции присутствует более одного элемента)
             CheckProductsByCategory(Product.ProductCategories.MostPopular, expectedProducts);
             CheckProductsByCategory(Product.ProductCategories.Campaigns, 
-                expectedProducts.Where(x => x.StickerValue.Equals("SALE")));
+                expectedProducts.Where(x => x.Stickers.Contains("SALE")));
             CheckProductsByCategory(Product.ProductCategories.Latest, expectedProducts);
         }
 
