@@ -10,10 +10,10 @@ namespace sel_12.Pages.AdminPanel.ProductPages.AddPages
         [FindsBy(How = How.XPath, Using = ".//label[normalize-space() = 'Enabled']/input")]
         public readonly IWebElement EnabledRadioButton;
 
-        [FindsBy(How = How.XPath, Using = ".//td[strong[normalize-space() = 'Name']]/span/input")]
+        [FindsBy(How = How.Name, Using = "name[en]")]
         public readonly IWebElement ProductNameInput;
 
-        [FindsBy(How = How.XPath, Using = ".//td[strong[normalize-space() = 'Code']]/input")]
+        [FindsBy(How = How.Name, Using = "code")]
         public readonly IWebElement ProductCodeInput;
 
         [FindsBy(How = How.XPath, Using = ".//input[@type = 'file']")]
@@ -21,7 +21,7 @@ namespace sel_12.Pages.AdminPanel.ProductPages.AddPages
 
         public override void EnsurePageLoaded()
         {
-            EnsureElementExists(By.XPath(".//h1[normalize-space() = 'Add New Product']"));
+            EnsureElementExists(By.Name("name[en]"));
         }
 
         public void SetGeneralInfo(Product product)

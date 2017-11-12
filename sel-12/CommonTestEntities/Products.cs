@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using sel_12.Constants;
 using sel_12.Models;
 
 namespace sel_12.CommonTestEntities
@@ -68,6 +69,20 @@ namespace sel_12.CommonTestEntities
             GreenDuck,
             RedDuck,
             YellowDuck
+        };
+
+        public static readonly Product ProductToAdd = new Product
+        {
+            Code = "666",
+            ProductName = "Real Duck",
+            ImagePath = FileConsts.DataDirectoryPath + "\\duck.jpg",
+            Manufacturer = "ACME Corp.",
+            ShortDescription = "Test product",
+            Description = "Test product for addition",
+            HeadTitle = "Real Duck",
+            MetaDescription = "Real Duck",
+            ActualPrice = 100500M,
+            CurrencyCode = "US Dollars"
         };
     }
 }

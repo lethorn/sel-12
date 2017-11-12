@@ -12,6 +12,8 @@ namespace sel_12.Models
 
         public string Manufacturer { get; set; }
 
+        public string CurrencyCode { get; set; }
+
         public decimal ActualPrice { get; set; }
 
         public decimal? OldPrice { get; set; }
@@ -19,6 +21,14 @@ namespace sel_12.Models
         public List<string> Stickers { get; set; }
 
         public string ImagePath { get; set; }
+
+        public string ShortDescription { get; set; }
+
+        public string Description { get; set; }
+
+        public string HeadTitle { get; set; }
+
+        public string MetaDescription { get; set; }
 
         public enum ProductCategories
         {

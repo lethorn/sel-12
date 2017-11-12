@@ -19,6 +19,11 @@ namespace sel_12.Tests
             new TestCaseData(Products.AllProducts).SetName("{m}")
         };
 
+        private static readonly TestCaseData[] ProductAddCases =
+        {
+            new TestCaseData(Products.ProductToAdd).SetName("{m}") 
+        };
+
         [TestCaseSource(nameof(StickersCases))]
         public void StickersTest(List<Product> expectedProducts)
         {
@@ -56,16 +61,9 @@ namespace sel_12.Tests
             Assert.True(productViewPage.CheckOldPrice());
         }
 
-        [Test]
-        public void ProductAddTest()
+        [TestCaseSource(nameof(ProductAddCases))]
+        public void ProductAddTest(Product productToAdd)
         {
-            var newProduct = new Product
-            {
-                Code = "123",
-                ProductName = "12345",
-                ImagePath = FileConsts.DataDirectoryPath + "\\duck.jpg"
-            };
-
             LoginAs(Users.Admin);
             Driver.GoToUrl(UrlConstants.CatalogsUrl);
             var catalogsPage = new CatalogPage();
@@ -74,7 +72,13 @@ namespace sel_12.Tests
 
             var addPage = new ProductAddPage();
             addPage.EnsurePageLoaded();
-            addPage.AddProduct(newProduct);
+            addPage.AddProduct(productToAdd);
+
+            Driver.GoToUrl(UrlConstants.CatalogsUrl);
+            catalogsPage = new CatalogPage();
+            catalogsPage.EnsurePageLoaded();
+            var catalogItems = catalogsPage.GetCatalogElementsNames();
+            Assert.That(catalogItems, Does.Contain(productToAdd.ProductName));
         }
 
         private static void CheckProductsByCategory(Product.ProductCategories productCategory, IEnumerable<Product> expectedInfo)

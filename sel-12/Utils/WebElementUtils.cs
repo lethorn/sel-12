@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace sel_12.Utils
 {
@@ -30,6 +31,12 @@ namespace sel_12.Utils
         public static decimal GetFontSize(this IWebElement element)
         {
             return decimal.Parse(element.GetCssValue("font-size").Replace("px", string.Empty), CultureInfo.InvariantCulture);
+        }
+
+        public static void SetSelectByText(this IWebElement element, string text)
+        {
+            var selectElement = new SelectElement(element);
+            selectElement.SelectByText(text);
         }
     }
 }
