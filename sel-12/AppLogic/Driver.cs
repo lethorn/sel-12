@@ -56,8 +56,10 @@ namespace sel_12.AppLogic
                     Browser = new ChromeDriver();
                     break;
                 case BrowserTypes.Firefox:
-                    var options = new FirefoxOptions();
-                    options.BrowserExecutableLocation = @"C:\Program Files (x86)\Mozilla Firefox\firefox.exe";
+                    var options = new FirefoxOptions
+                    {
+                        BrowserExecutableLocation = @"C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
+                    };
                     Browser = new FirefoxDriver(options);
                     break;
                 case BrowserTypes.InternetExplorer:
