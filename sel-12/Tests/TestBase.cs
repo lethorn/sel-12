@@ -1,9 +1,10 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using sel_12.AppLogic;
 using sel_12.Constants;
 using sel_12.Models;
-using sel_12.Pages;
 using sel_12.Pages.AdminPanel;
+using sel_12.Utils;
 
 namespace sel_12.Tests
 {
@@ -25,10 +26,12 @@ namespace sel_12.Tests
         protected AdminPage LoginAs(User userCredentials)
         {
             Driver.GoToUrl(UrlConstants.AdminPageUrl);
-
-            var loginPage = new LoginPage();
-            loginPage.EnsurePageLoaded();
-            loginPage.SetAccountInfo(userCredentials);
+            if (!Driver.Browser.FindElements(By.Name("login_form")).IsNullOrEmpty())
+            {
+                var loginPage = new LoginPage();
+                loginPage.EnsurePageLoaded();
+                loginPage.SetAccountInfo(userCredentials);
+            }
 
             var adminPage = new AdminPage();
             adminPage.EnsurePageLoaded();
