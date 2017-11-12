@@ -93,17 +93,17 @@ namespace sel_12.Pages
             {
                 case Product.ProductCategories.MostPopular:
                     MostPopularProductsElements.Select(x => GetProductLink(x, product.ProductName))
-                        .Single()
+                        .First()
                         .Click();
                     break;
                 case Product.ProductCategories.Campaigns:
                     CampaignProductsElements.Select(x => GetProductLink(x, product.ProductName))
-                        .Single()
+                        .First()
                         .Click();
                     break;
                 case Product.ProductCategories.Latest:
                     LatestProductsElements.Select(x => GetProductLink(x, product.ProductName))
-                        .Single()
+                        .First()
                         .Click();
                     break;
                 default:

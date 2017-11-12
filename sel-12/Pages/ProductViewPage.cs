@@ -2,6 +2,8 @@
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Support.UI;
+using sel_12.AppLogic;
 using sel_12.Models;
 using sel_12.Pages.Base;
 using sel_12.Utils;
@@ -19,9 +21,29 @@ namespace sel_12.Pages
         [FindsBy(How = How.ClassName, Using = "images-wrapper")]
         public readonly IWebElement ProductStickersContainer;
 
+        [FindsBy(How = How.Name, Using = "add_cart_product")]
+        public readonly IWebElement AddToCartButton;
+
+        [FindsBy(How = How.Id, Using = "cart")]
+        public readonly IWebElement CartContainer;
+
+        [FindsBy(How = How.XPath, Using = ".//a[normalize-space() = 'Checkout »']")]
+        public readonly IWebElement CheckOutLink;
+
         public override void EnsurePageLoaded()
         {
             EnsureElementExists(By.Id("box-product"));
+        }
+
+        public void AddProductToCart(int itemNumber)
+        {
+            var sizeSelect = Driver.Browser.FindElements(By.Name("options[Size]"));
+            if (!sizeSelect.IsNullOrEmpty())
+            {
+                sizeSelect.First().SetSelectByText("Small");
+            }
+            AddToCartButton.Click();
+            Driver.BrowserWait.Until(ExpectedConditions.ElementIsVisible(By.XPath($".//span[@class = 'quantity' and text() = '{itemNumber}']")));
         }
 
         public bool CheckActualPrice()

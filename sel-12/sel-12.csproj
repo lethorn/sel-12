@@ -74,9 +74,11 @@
     <Compile Include="Pages\Base\BasePage.cs" />
     <Compile Include="Pages\AdminPanel\LoginPage.cs" />
     <Compile Include="Pages\AdminPanel\CountriesManagementPage.cs" />
+    <Compile Include="Pages\CheckOutPage.cs" />
     <Compile Include="Pages\MainPage.cs" />
     <Compile Include="Pages\ProductViewPage.cs" />
     <Compile Include="Pages\UserRegistrationPage.cs" />
+    <Compile Include="Tests\CartTest.cs" />
     <Compile Include="Tests\RegistrationTest.cs" />
     <Compile Include="Tests\SortOrderTest.cs" />
     <Compile Include="Tests\SidebarLinksTest.cs" />
