@@ -27,10 +27,12 @@ namespace sel_12.Tests
         private void OpenNewTabAndCheckContent(IWebElement link)
         {
             var originalWindowHandles = Driver.Browser.WindowHandles;
+            var originalWindowTitle = Driver.Browser.Title;
             var originalWindowHandle = Driver.Browser.CurrentWindowHandle;
             link.Click();
             var newHandle = Driver.BrowserWait.Until(ExpectedConditionsExtensions.AnyWindowOtherThan(originalWindowHandles));
             Driver.Browser.SwitchTo().Window(newHandle);
+            Assert.That(Driver.Browser.Title, Is.Not.EqualTo(originalWindowTitle));
             Driver.Browser.Close();
             Driver.Browser.SwitchTo().Window(originalWindowHandle);
         }
