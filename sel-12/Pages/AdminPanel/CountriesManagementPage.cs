@@ -11,7 +11,7 @@ namespace sel_12.Pages.AdminPanel
     {
         [FindsBy(How = How.ClassName, Using = "dataTable")]
         public readonly IWebElement CountriesTable;
-
+        
         public override void EnsurePageLoaded()
         {
             EnsureElementExists(By.ClassName("dataTable"));

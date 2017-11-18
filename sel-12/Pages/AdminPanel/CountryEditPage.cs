@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
@@ -12,6 +11,9 @@ namespace sel_12.Pages.AdminPanel
     {
         [FindsBy(How = How.Id, Using = "table-zones")]
         public readonly IWebElement ZonesTable;
+
+        [FindsBy(How = How.XPath, Using = ".//a[i[@class = 'fa fa-external-link']]")]
+        public readonly IList<IWebElement> ExternalLinks;
 
         public override void EnsurePageLoaded()
         {
