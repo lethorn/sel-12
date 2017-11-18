@@ -77,6 +77,7 @@ namespace sel_12.Tests
             var actualProduct = productViewPage.GetProduct();
             Assert.That(actualProduct, Is.EqualTo(firstCampaignProduct));
             Assert.True(productViewPage.CheckOldPrice());
+            Assert.True(productViewPage.CheckActualPrice());
         }
 
         [TestCaseSource(nameof(ProductAddCases))]

@@ -24,15 +24,16 @@ namespace sel_12.Tests
             }
         }
 
-        private void OpenNewTabAndCheckContent(IWebElement link)
+        private static void OpenNewTabAndCheckContent(IWebElement link)
         {
             var originalWindowHandles = Driver.Browser.WindowHandles;
-            var originalWindowTitle = Driver.Browser.Title;
             var originalWindowHandle = Driver.Browser.CurrentWindowHandle;
+            var originalWindowTitle = Driver.Browser.Title;
             link.Click();
             var newHandle = Driver.BrowserWait.Until(ExpectedConditionsExtensions.AnyWindowOtherThan(originalWindowHandles));
+            var newTitle = Driver.Browser.Title;
             Driver.Browser.SwitchTo().Window(newHandle);
-            Assert.That(Driver.Browser.Title, Is.Not.EqualTo(originalWindowTitle));
+            Assert.That(newTitle, Is.Not.EqualTo(originalWindowTitle));
             Driver.Browser.Close();
             Driver.Browser.SwitchTo().Window(originalWindowHandle);
         }

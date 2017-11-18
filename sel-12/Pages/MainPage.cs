@@ -80,7 +80,7 @@ namespace sel_12.Pages
             var doesActualPriceRed = actualPriceRgba.Blue == 0 && actualPriceRgba.Green == 0;
 
             var actualPriceFontWeight = actualPriceElement.GetCssValue("font-weight");
-            var doesActualPriceBold = actualPriceFontWeight.Equals("bold") || actualPriceFontWeight.Equals("900");
+            var doesActualPriceBold = actualPriceFontWeight.Equals("bold") || int.Parse(actualPriceFontWeight) >= 700;
 
             var oldPriceFontSize = priceContainer.FindElement(By.TagName("s")).GetFontSize();
             var actualPriceFontSize = actualPriceElement.GetFontSize();
