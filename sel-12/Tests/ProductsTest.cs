@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using sel_12.AppLogic;
 using sel_12.CommonTestEntities;
 using sel_12.Constants;
@@ -49,11 +50,11 @@ namespace sel_12.Tests
 
             var mainPage = new MainPage();
             mainPage.EnsurePageLoaded();
-            
-            CheckProductsByCategory(Product.ProductCategories.MostPopular, expectedProducts);
-            CheckProductsByCategory(Product.ProductCategories.Campaigns, 
-                expectedProducts.Where(x => x.Stickers.Contains("SALE")));
-            CheckProductsByCategory(Product.ProductCategories.Latest, expectedProducts);
+
+            foreach (var productElement in mainPage.ProductElements)
+            {
+                CheckThatProductHasOneSticker(productElement);
+            }
         }
 
         [TestCaseSource(nameof(DriverCases))]
@@ -101,10 +102,11 @@ namespace sel_12.Tests
             Assert.That(catalogItems, Does.Contain(productToAdd.ProductName));
         }
 
-        private static void CheckProductsByCategory(Product.ProductCategories productCategory, IEnumerable<Product> expectedInfo)
+        private static void CheckThatProductHasOneSticker(IWebElement productElement)
         {
-            var actualProducts = new MainPage().GetProductsByCategory(productCategory);
-            Assert.That(actualProducts, Is.SupersetOf(expectedInfo));
+            var mainPage = new MainPage();
+            var stickersCount = mainPage.GetProductStickersCount(productElement);
+            Assert.That(stickersCount, Is.EqualTo(1));
         }
     }
 }

@@ -22,6 +22,9 @@ namespace sel_12.Pages
         [FindsBy(How = How.XPath, Using = ".//div[@id = 'box-latest-products']/div/ul/li")]
         public readonly IList<IWebElement> LatestProductsElements;
 
+        [FindsBy(How = How.CssSelector, Using = "li.product")]
+        public readonly IList<IWebElement> ProductElements;
+
         [FindsBy(How = How.Name, Using = "email")]
         public readonly IWebElement UserEmailInput;
 
@@ -54,6 +57,11 @@ namespace sel_12.Pages
         {
             LogoutLink.Click();
             Driver.BrowserWait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//a[normalize-space() = 'New customers click here']")));
+        }
+
+        public int GetProductStickersCount(IWebElement productElement)
+        {
+            return productElement.FindElements(By.CssSelector("div.sticker")).Count;
         }
 
         public bool CheckOldPrice(IWebElement productContainer)
