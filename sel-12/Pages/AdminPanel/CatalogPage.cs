@@ -11,7 +11,7 @@ namespace sel_12.Pages.AdminPanel
         [FindsBy(How = How.XPath, Using = ".//a[normalize-space() = 'Add New Product']")]
         public readonly IWebElement AddProductButton;
 
-        [FindsBy(How = How.XPath, Using = ".//table[@class = 'dataTable']/tbody/tr[@class = 'row']")]
+        [FindsBy(How = How.XPath, Using = ".//table[@class = 'dataTable']/tbody/tr[@class = 'row' and not(td[3][i[contains(@class, 'fa-folder')]])]")]
         public readonly IList<IWebElement> CatalogTableRows;
 
         public override void EnsurePageLoaded()

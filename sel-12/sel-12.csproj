@@ -78,6 +78,7 @@
     <Compile Include="Pages\MainPage.cs" />
     <Compile Include="Pages\ProductViewPage.cs" />
     <Compile Include="Pages\UserRegistrationPage.cs" />
+    <Compile Include="Tests\BrowserLogsTest.cs" />
     <Compile Include="Tests\CartTest.cs" />
     <Compile Include="Tests\RegistrationTest.cs" />
     <Compile Include="Tests\SortOrderTest.cs" />

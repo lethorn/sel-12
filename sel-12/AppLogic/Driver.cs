@@ -53,14 +53,16 @@ namespace sel_12.AppLogic
             switch (browserType)
             {
                 case BrowserTypes.Chrome:
-                    Browser = new ChromeDriver();
+                    var chromeOptions = new ChromeOptions();
+                    chromeOptions.SetLoggingPreference(LogType.Browser, LogLevel.All);
+                    Browser = new ChromeDriver(chromeOptions);
                     break;
                 case BrowserTypes.Firefox:
-                    var options = new FirefoxOptions
+                    var firefoxOptions = new FirefoxOptions
                     {
                         BrowserExecutableLocation = @"C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
                     };
-                    Browser = new FirefoxDriver(options);
+                    Browser = new FirefoxDriver(firefoxOptions);
                     break;
                 case BrowserTypes.InternetExplorer:
                     Browser = new InternetExplorerDriver();
