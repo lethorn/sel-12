@@ -2,6 +2,8 @@
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using sel_12.Models;
+using sel_12.Pages.AdminPanel.ProductPages.AddPages;
 using sel_12.Pages.Base;
 
 namespace sel_12.Pages.AdminPanel
@@ -23,6 +25,14 @@ namespace sel_12.Pages.AdminPanel
         {
             return CatalogTableRows.Select(x => x.FindElement(By.XPath("./td[3]//a")).Text)
                 .ToList();
+        }
+
+        public void AddProdict(Product productToAdd)
+        {
+            AddProductButton.Click();
+            var addPage = new ProductAddPage();
+            addPage.EnsurePageLoaded();
+            addPage.AddProduct(productToAdd);
         }
     }
 }

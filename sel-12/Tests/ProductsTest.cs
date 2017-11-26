@@ -86,20 +86,23 @@ namespace sel_12.Tests
         {
             Driver.StartBrowser();
             LoginAs(Users.Admin);
+            OpenCatalogPage().AddProdict(productToAdd);
+            CheckProductAfterAddition(productToAdd);
+        }
+
+        private static CatalogPage OpenCatalogPage()
+        {
             Driver.GoToUrl(UrlConstants.CatalogsUrl);
             var catalogsPage = new CatalogPage();
             catalogsPage.EnsurePageLoaded();
-            catalogsPage.AddProductButton.Click();
+            return catalogsPage;
+        }
 
-            var addPage = new ProductAddPage();
-            addPage.EnsurePageLoaded();
-            addPage.AddProduct(productToAdd);
-
-            Driver.GoToUrl(UrlConstants.CatalogsUrl);
-            catalogsPage = new CatalogPage();
-            catalogsPage.EnsurePageLoaded();
+        private static void CheckProductAfterAddition(Product expectedProduct)
+        {
+            var catalogsPage = OpenCatalogPage();
             var catalogItems = catalogsPage.GetCatalogElementsNames();
-            Assert.That(catalogItems, Does.Contain(productToAdd.ProductName));
+            Assert.That(catalogItems, Does.Contain(expectedProduct.ProductName));
         }
 
         private static void CheckThatProductHasOneSticker(IWebElement productElement)
